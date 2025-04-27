@@ -13,8 +13,6 @@ import {
 } from "lucide-react";
 // import axios from "axios"; // Descomenta para integrar backend
 
-// Añade esta ruta en App.js:
-// <Route path="/dashboard" element={<Dashboard />} />
 
 const Dashboard = () => {
   const [apis, setApis] = useState([]);

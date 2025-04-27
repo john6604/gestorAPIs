@@ -7,7 +7,6 @@ const Navbar = () => {
   const [menuAbierto, setMenuAbierto] = useState(null);
   const [scrollActivo, setScrollActivo] = useState(false);
 
-  // Refs para cada dropdown
   const apisRef = useRef(null);
   const usuariosRef = useRef(null);
   const permisosRef = useRef(null);

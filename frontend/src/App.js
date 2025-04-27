@@ -13,7 +13,6 @@ import Dashboard   from "./pages/Dashboard";
 function App() {
   return (
     <Router>
-      {/* Contenedor flex-column que ocupa toda la pantalla */}
       <div className="flex flex-col min-h-screen">
         
         {/* Navbar fijo arriba */}
