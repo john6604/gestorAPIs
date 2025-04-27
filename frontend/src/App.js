@@ -15,7 +15,7 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         
-        {/* Navbar fijo arriba */}
+        {/* Navbar fijo arriba pero con sticky*/}
         <Navbar />
 
         {/* Main crece y ocupa todo el espacio sobrante */}

@@ -85,6 +85,7 @@ const Navbar = () => {
             nombre="APIs"
             opciones={[
               { to: "/apis", label: "Ver APIs" },
+              { to: "/dashboard", label: "Ver dashboard" },
               { to: "/crear", label: "Crear API" },
               { to: "/modificar", label: "Modificar API" },
               { to: "/eliminar", label: "Eliminar API" },

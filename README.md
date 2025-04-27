@@ -20,3 +20,9 @@ npm start
 Ctrl + C
 deactivate
 exit
+
+//HACER COMMIT
+git add .
+git status //ver los archivos que se van a actualizar 
+git commit - m "TITULO"
+git push --force origin main
