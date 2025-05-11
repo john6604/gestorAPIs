@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Navbar from "../componentes/Navbar";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [correo, setCorreo] = useState("");
@@ -16,15 +18,35 @@ const Login = () => {
     return nuevosErrores;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const erroresDetectados = validarFormulario();
     setErrores(erroresDetectados);
 
     if (Object.keys(erroresDetectados).length === 0) {
-      console.log("Iniciando sesión:", { correo, clave });
-      alert("¡Inicio de sesión exitoso! (Falta conectar con backend)");
-      setCorreo(""); setClave("");
+      try {
+        const response = await fetch("http://localhost:8000/api/login/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ correo, clave }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("usuario_id", data.usuario_id);
+          localStorage.setItem("rol", data.rol);
+
+          alert("¡Inicio de sesión exitoso!");
+          window.location.href = "/dashboard"; // o usar useNavigate() si usas React Router
+        } else {
+          alert(data.error || "Error al iniciar sesión");
+        }
+      } catch (err) {
+        console.error("Error al conectar con backend:", err);
+        alert("Error de conexión con el servidor");
+      }
     }
   };
 
@@ -34,8 +56,16 @@ const Login = () => {
     }`;
 
   return (
+    <>
+    <Navbar/>
     <div className="max-w-md mx-auto mt-16 p-8 bg-white shadow-xl rounded-xl">
-      <h2 className="text-2xl font-semibold mb-6 text-[#00509e]">Iniciar Sesión</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-[#0077ba] text-center">Iniciar Sesión</h2>
+      <p className="text-sm text-center mb-4">
+        No tiene una cuenta.{" "}
+        <Link to="/registro" className="text-[#0077ba] underline hover:text-[#00509e]">
+          Regístrate
+        </Link>
+      </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm">Correo electrónico</label>
@@ -59,12 +89,18 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#00509e] hover:bg-#00509e text-white py-2 rounded-md transition duration-200"
+          className="w-full bg-[#0077ba] hover:bg-[#00509e] text-white py-2 rounded-md transition duration-200"
         >
           Iniciar Sesión
         </button>
       </form>
+      <p className="text-sm text-center mt-4">
+        <Link to="/registro" className="text-[#0077ba] underline hover:text-[#00509e]">
+          Olvidó su contraseña.
+        </Link>
+      </p>
     </div>
+  </>
   );
 };
 
